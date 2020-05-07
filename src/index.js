@@ -4,14 +4,14 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "src/index.css";
 import HomePage from "src/page/home-page/HomePage";
-import HatsPage from "src/page/hats-page/HatsPage";
+import ShopPage from "src/page/shop-page/ShopPage";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/hats" component={HatsPage} />
+        <Route path="/shop" component={ShopPage} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
