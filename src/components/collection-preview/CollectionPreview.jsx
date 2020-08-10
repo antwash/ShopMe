@@ -1,8 +1,8 @@
 import React from "react";
 
-const ItemsCollection = ({ title, items }) => {
+const CollectionPreview = ({ title, items }) => {
   return (
-    <div className="items-collection">
+    <div className="collection-preview">
       <h1 className="title">{title.toUpperCase()}</h1>
       <div className="item-preview">
         {items
@@ -15,4 +15,4 @@ const ItemsCollection = ({ title, items }) => {
   );
 };
 
-export default ItemsCollection;
+export default CollectionPreview;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import ItemsCollection from "src/components/items-collection/ItemsCollection";
+import CollectionPreview from "src/components/collection-preview/CollectionPreview";
 
 import { SHOP_ITEMS } from "src/utils/constants";
 
@@ -20,7 +20,7 @@ class ShopPage extends React.Component {
       <div>
         {itemsCollection.map((item) => {
           return (
-            <ItemsCollection
+            <CollectionPreview
               key={item.id}
               title={item.title}
               items={item.items}
