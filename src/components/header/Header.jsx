@@ -8,8 +8,8 @@ import "src/components/header/header.styles.scss";
 
 const Header = () => (
   <div className="header">
-    <Link clasName="logo-container" to={"/"}>
-      <CrownLogo classname="logo" />
+    <Link className="logo-container" to={"/"}>
+      <CrownLogo className="logo" />
     </Link>
     <div className="options">
       <Link className="option" to="/shop">
@@ -17,6 +17,9 @@ const Header = () => (
       </Link>
       <Link className="option" to="/shop">
         CONTACT
+      </Link>
+      <Link className="option" to="/signin">
+        SIGN IN
       </Link>
     </div>
   </div>
