@@ -17,7 +17,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
-export const fireStore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
@@ -25,4 +24,3 @@ provider.setCustomParameters({
 });
 
 export const handleSignInWithGoogle = () => auth.signInWithPopup(provider);
-export default firebase;
