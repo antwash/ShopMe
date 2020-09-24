@@ -16,7 +16,6 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
       currentUser: null,
     };
     this.unsubscribeAuthStateSubscription = null;
@@ -30,7 +29,7 @@ class App extends React.Component {
     // node is removed from the DOM.
     this.unsubscribeAuthStateSubscription = auth.onAuthStateChanged(
       (currentUser) => {
-        this.setState(currentUser);
+        this.setState({ currentUser });
       }
     );
   }
@@ -39,9 +38,10 @@ class App extends React.Component {
   }
 
   render() {
+    const { currentUser } = this.state;
     return (
       <div>
-        <Header />
+        <Header currentUser={currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
