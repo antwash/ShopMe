@@ -2,10 +2,14 @@ import React from "react";
 
 import "src/components/button/button.styles.scss";
 
-const FormButton = ({ type, children, onClick }) => {
+const FormButton = ({ type, label, customStyle, onClick }) => {
   return (
-    <button className="form-button" type={type} onClick={onClick}>
-      {children}
+    <button
+      className={`${customStyle} form-button`}
+      type={type}
+      onClick={onClick}
+    >
+      {label}
     </button>
   );
 };
