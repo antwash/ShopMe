@@ -8,7 +8,7 @@ import HomePage from "src/page/home-page/HomePage";
 import ShopPage from "src/page/shop-page/ShopPage";
 import AuthPage from "src/page/auth-page/AuthPage";
 
-import { auth } from "src/firebase/util";
+import { auth, handleCreateNewUser } from "src/firebase/util";
 
 import "src/index.css";
 
@@ -28,8 +28,21 @@ class App extends React.Component {
     // to close the subscription once our application
     // node is removed from the DOM.
     this.unsubscribeAuthStateSubscription = auth.onAuthStateChanged(
-      (currentUser) => {
-        this.setState({ currentUser });
+      async (authenticatedUser) => {
+        if (!authenticatedUser) {
+          this.setState({ currentUser: null });
+          return;
+        }
+
+        const userRef = await handleCreateNewUser(authenticatedUser);
+        userRef.onSnapshot((snapShot) => {
+          const snapShotData = snapShot.data();
+          const currentUser = {
+            id: snapShot.id,
+            ...snapShotData,
+          };
+          this.setState({ currentUser });
+        });
       }
     );
   }

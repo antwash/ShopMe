@@ -14,9 +14,14 @@ const firebaseConfig = {
   measurementId: "G-QE77LDDFVD",
 };
 
+const fireStoreDbPaths = {
+  users: "users/",
+};
+
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
@@ -24,3 +29,33 @@ provider.setCustomParameters({
 });
 
 export const handleSignInWithGoogle = () => auth.signInWithPopup(provider);
+export const handleCreateNewUser = async (authenticatedUser) => {
+  if (!authenticatedUser) {
+    return;
+  }
+
+  const userPath = `${fireStoreDbPaths.users}${authenticatedUser.uid}`;
+  const userReference = firestore.doc(userPath);
+  const snapShot = await userReference.get();
+
+  // Authenticated user already exists in firestore database
+  if (snapShot.exists) {
+    return userReference;
+  }
+
+  // Persist authenticated user in firestore database
+  const { displayName, email, metadata } = authenticatedUser;
+  const { creationTime } = metadata;
+
+  try {
+    await userReference.set({
+      email: email,
+      userName: displayName,
+      creationTimeMs: Date.parse(creationTime),
+    });
+  } catch (error) {
+    console.log(` Error creating user in firestore with email: ${email}`);
+  }
+
+  return userReference;
+};
