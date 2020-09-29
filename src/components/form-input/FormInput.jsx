@@ -9,6 +9,7 @@ const FormInput = ({ type, name, label, required, value, onHandleChange }) => {
         className="form-input"
         type={type}
         name={name}
+        value={value}
         required={required}
         onChange={onHandleChange}
       />
