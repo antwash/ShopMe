@@ -8,7 +8,7 @@ import HomePage from "src/page/home-page/HomePage";
 import ShopPage from "src/page/shop-page/ShopPage";
 import AuthPage from "src/page/auth-page/AuthPage";
 
-import { auth, handleCreateNewUser } from "src/firebase/util";
+import { auth, createAuthenticatedUserRef } from "src/firebase/util";
 
 import "src/index.css";
 
@@ -34,7 +34,7 @@ class App extends React.Component {
           return;
         }
 
-        const userRef = await handleCreateNewUser(authenticatedUser);
+        const userRef = await createAuthenticatedUserRef(authenticatedUser);
         userRef.onSnapshot((snapShot) => {
           const snapShotData = snapShot.data();
           const currentUser = {

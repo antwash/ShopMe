@@ -29,7 +29,7 @@ provider.setCustomParameters({
 });
 
 export const handleSignInWithGoogle = () => auth.signInWithPopup(provider);
-export const handleCreateNewUser = async (authenticatedUser) => {
+export const createAuthenticatedUserRef = async (authenticatedUser) => {
   if (!authenticatedUser) {
     return;
   }

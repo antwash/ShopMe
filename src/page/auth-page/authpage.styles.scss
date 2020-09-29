@@ -1,0 +1,12 @@
+.auth-page {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px auto;
+}
+
+@media all and (max-width: 1000px){
+  .auth-page {
+    display: flex;
+    flex-direction: column;
+  }
+}
