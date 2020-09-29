@@ -60,6 +60,7 @@ class SignIn extends React.Component {
           <div className="buttons">
             <FormButton label={"Sign In"} type="submit" />
             <FormButton
+              type="button"
               label={"Sign In With Google"}
               customStyle={"googleSignInButton"}
               onClick={handleSignInWithGoogle}
