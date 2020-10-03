@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 
 import store from "src/redux/store";
+import { setCurrentUserAction } from "src/redux/user/userActions";
+
+import { auth, createAuthenticatedUserRef } from "src/firebase/util";
 
 import Header from "src/components/header/Header";
 
@@ -11,16 +14,11 @@ import HomePage from "src/page/home-page/HomePage";
 import ShopPage from "src/page/shop-page/ShopPage";
 import AuthPage from "src/page/auth-page/AuthPage";
 
-import { auth, createAuthenticatedUserRef } from "src/firebase/util";
-
 import "src/index.css";
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      currentUser: null,
-    };
     this.unsubscribeAuthStateSubscription = null;
   }
 
@@ -32,8 +30,10 @@ class App extends React.Component {
     // node is removed from the DOM.
     this.unsubscribeAuthStateSubscription = auth.onAuthStateChanged(
       async (authenticatedUser) => {
+        const { setCurrentUser } = this.props;
+
         if (!authenticatedUser) {
-          this.setState({ currentUser: null });
+          setCurrentUser(null);
           return;
         }
 
@@ -44,7 +44,7 @@ class App extends React.Component {
             id: snapShot.id,
             ...snapShotData,
           };
-          this.setState({ currentUser });
+          setCurrentUser(currentUser);
         });
       }
     );
@@ -54,10 +54,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.state;
     return (
       <div>
-        <Header currentUser={currentUser} />
+        <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" compgonent={ShopPage} />
@@ -68,11 +67,17 @@ class App extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUserAction(user)),
+});
+
+const ConnectedApp = connect(null, mapDispatchToProps)(App);
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ConnectedApp />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
