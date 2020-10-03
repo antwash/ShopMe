@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider, connect } from "react-redux";
@@ -16,21 +16,16 @@ import AuthPage from "src/page/auth-page/AuthPage";
 
 import "src/index.css";
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.unsubscribeAuthStateSubscription = null;
-  }
-
-  componentDidMount() {
+const App = (props) => {
+  useEffect(() => {
     // Firebase auth subscription listens to authentication
     // changes and returns new auth state via the callback.
     // onAuthStateChanged returns a callback we can use
     // to close the subscription once our application
     // node is removed from the DOM.
-    this.unsubscribeAuthStateSubscription = auth.onAuthStateChanged(
+    const authUnsubscribeListener = auth.onAuthStateChanged(
       async (authenticatedUser) => {
-        const { setCurrentUser } = this.props;
+        const { setCurrentUser } = props;
 
         if (!authenticatedUser) {
           setCurrentUser(null);
@@ -48,24 +43,23 @@ class App extends React.Component {
         });
       }
     );
-  }
-  componentWillUnmount() {
-    this.unsubscribeAuthStateSubscription();
-  }
+    // unsubscribe from the auth subscription once the component unmounts
+    return () => {
+      authUnsubscribeListener();
+    };
+  });
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" compgonent={ShopPage} />
-          <Route path="/signin" component={AuthPage} />
-        </Switch>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" compgonent={ShopPage} />
+        <Route path="/signin" component={AuthPage} />
+      </Switch>
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUserAction(user)),
