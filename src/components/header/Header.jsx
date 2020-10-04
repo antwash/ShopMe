@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { ReactComponent as CrownLogo } from "src/assets/crown.svg";
+import CartIcon from "src/components/cart-icon/CartIcon";
 
 import { auth } from "src/firebase/util";
 
@@ -31,6 +32,7 @@ const Header = ({ currentUser }) => (
           SIGN IN
         </Link>
       )}
+      <CartIcon />
     </div>
   </div>
 );
