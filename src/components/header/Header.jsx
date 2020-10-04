@@ -12,7 +12,7 @@ import { auth } from "src/firebase/util";
 import "src/components/header/header.styles.scss";
 
 const handleCurrentUserSignOut = () => auth.signOut();
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, cartIsHidden }) => (
   <div className="header">
     <Link className="logo-container" to={"/"}>
       <CrownLogo className="logo" />
@@ -35,12 +35,13 @@ const Header = ({ currentUser }) => (
       )}
       <CartIcon />
     </div>
-    <CartDropDownMenu />
+    {cartIsHidden ? null : <CartDropDownMenu />}
   </div>
 );
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
+  cartIsHidden: state.cart.cartIsHidden,
 });
 
 export default connect(mapStateToProps)(Header);
