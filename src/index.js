@@ -16,7 +16,7 @@ import AuthPage from "src/page/auth-page/AuthPage";
 
 import "src/index.css";
 
-const App = (props) => {
+const App = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
     // Firebase auth subscription listens to authentication
     // changes and returns new auth state via the callback.
@@ -25,8 +25,6 @@ const App = (props) => {
     // node is removed from the DOM.
     const authUnsubscribeListener = auth.onAuthStateChanged(
       async (authenticatedUser) => {
-        const { setCurrentUser } = props;
-
         if (!authenticatedUser) {
           setCurrentUser(null);
           return;
@@ -44,13 +42,10 @@ const App = (props) => {
       }
     );
     // unsubscribe from the auth subscription once the component unmounts
-    return () => {
-      authUnsubscribeListener();
-    };
-  });
+    return () => authUnsubscribeListener();
+  }, [setCurrentUser]);
 
   const renderComponentForSignInRoute = () => {
-    const { currentUser } = props;
     if (!currentUser) {
       return <AuthPage />;
     }
@@ -62,8 +57,8 @@ const App = (props) => {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/shop" compgonent={ShopPage} />
-        <Route exact="/signin" render={renderComponentForSignInRoute} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/signin" render={renderComponentForSignInRoute} />
       </Switch>
     </div>
   );
