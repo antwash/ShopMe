@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 
 import store from "src/redux/store";
@@ -49,23 +49,35 @@ const App = (props) => {
     };
   });
 
+  const renderComponentForSignInRoute = () => {
+    const { currentUser } = props;
+    if (!currentUser) {
+      return <AuthPage />;
+    }
+    return <Redirect to="/" />;
+  };
+
   return (
     <div>
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" compgonent={ShopPage} />
-        <Route path="/signin" component={AuthPage} />
+        <Route exact="/signin" render={renderComponentForSignInRoute} />
       </Switch>
     </div>
   );
 };
 
+const mapStateToProps = (store) => ({
+  currentUser: store.user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUserAction(user)),
 });
 
-const ConnectedApp = connect(null, mapDispatchToProps)(App);
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
 ReactDOM.render(
   <React.StrictMode>
