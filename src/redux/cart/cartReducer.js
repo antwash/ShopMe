@@ -1,5 +1,7 @@
 import { CartActionTypes } from "src/redux/cart/cartActions";
 
+import { addItemToChart } from "./cart.utils";
+
 const INITIAL_STATE = {
   cartIsHidden: true,
   cartItems: [],
@@ -15,7 +17,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case CartActionTypes.addItemToCart:
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload],
+        cartItems: addItemToChart(state.cartItems, action.payload),
       };
     default:
       return state;
