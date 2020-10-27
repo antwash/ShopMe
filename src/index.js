@@ -6,6 +6,8 @@ import { Provider, connect } from "react-redux";
 import store from "src/redux/store";
 import { setCurrentUserAction } from "src/redux/user/userActions";
 
+import { selectCurrentUser } from "src/redux/user/userSelectors";
+
 import { auth, createAuthenticatedUserRef } from "src/firebase/util";
 
 import Header from "src/components/header/Header";
@@ -64,8 +66,8 @@ const App = ({ currentUser, setCurrentUser }) => {
   );
 };
 
-const mapStateToProps = (store) => ({
-  currentUser: store.user.currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

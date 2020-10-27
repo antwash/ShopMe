@@ -3,6 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { selectCurrentUser } from "src/redux/user/userSelectors";
+import { selectCartIsHidden } from "src/redux/cart/cartSelectors";
+
 import { ReactComponent as CrownLogo } from "src/assets/crown.svg";
 import CartIcon from "src/components/cart-icon/CartIcon";
 import CartDropDownMenu from "src/components/cart-dropdown-menu/CartDropDownMenu";
@@ -40,8 +43,8 @@ const Header = ({ currentUser, cartIsHidden }) => (
 );
 
 const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
-  cartIsHidden: state.cart.cartIsHidden,
+  currentUser: selectCurrentUser(state),
+  cartIsHidden: selectCartIsHidden(state),
 });
 
 export default connect(mapStateToProps)(Header);
