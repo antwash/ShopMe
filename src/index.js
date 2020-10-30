@@ -5,7 +5,6 @@ import { Provider, connect } from "react-redux";
 
 import store from "src/redux/store";
 import { setCurrentUserAction } from "src/redux/user/userActions";
-
 import { selectCurrentUser } from "src/redux/user/userSelectors";
 
 import { auth, createAuthenticatedUserRef } from "src/firebase/util";
@@ -15,8 +14,16 @@ import Header from "src/components/header/Header";
 import HomePage from "src/page/home-page/HomePage";
 import ShopPage from "src/page/shop-page/ShopPage";
 import AuthPage from "src/page/auth-page/AuthPage";
+import CheckoutPage from "src/page/checkout-page/CheckoutPage";
 
 import "src/index.css";
+
+export const Routes = {
+  ROOT: "/",
+  SIGNIN: "/signin",
+  SHOP: "/shop",
+  CHECKOUT: "/checkout",
+};
 
 const App = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
@@ -51,16 +58,21 @@ const App = ({ currentUser, setCurrentUser }) => {
     if (!currentUser) {
       return <AuthPage />;
     }
-    return <Redirect to="/" />;
+    return <Redirect to={Routes.ROOT} />;
   };
 
   return (
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route exact path="/signin" render={renderComponentForSignInRoute} />
+        <Route exact path={Routes.ROOT} component={HomePage} />
+        <Route path={Routes.SHOP} component={ShopPage} />
+        <Route
+          exact
+          path={Routes.SIGNIN}
+          render={renderComponentForSignInRoute}
+        />
+        <Route exact path={Routes.CHECKOUT} render={CheckoutPage} />
       </Switch>
     </div>
   );
