@@ -9,6 +9,7 @@ const CheckoutPageItem = ({ cartItem }) => {
         <img alt={cartItem.name} src={cartItem.imageUrl} />
       </div>
       <div className="item-name">{cartItem.name}</div>
+      <div className="item-quantity">{cartItem.quantity}</div>
       <div className="item-price">${cartItem.price}</div>
       <div className="remove-item-button">&#10005;</div>
     </div>
