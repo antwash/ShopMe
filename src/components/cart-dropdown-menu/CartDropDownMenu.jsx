@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import { Routes } from "src/index";
 
-import CartItem from "src/components/cart-item/CartItem";
+import CartDropDownMenuItem from "src/components/cart-dropdown-menu-item/CartDropDownMenuItem";
 import FormButton from "src/components/button/FormButton";
 
 import { selectCartItems } from "src/redux/cart/cartSelectors";
@@ -29,7 +29,7 @@ const CartDropDownMenu = ({ cartItems, history, location, dispatch }) => {
       <div className="cart-items">
         {cartItems.length ? (
           cartItems.map((cartItem) => (
-            <CartItem key={cartItem.id} item={cartItem} />
+            <CartDropDownMenuItem key={cartItem.id} item={cartItem} />
           ))
         ) : (
           <span className="cart-empty-message"> Your cart is empty!</span>
