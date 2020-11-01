@@ -72,7 +72,7 @@ const App = ({ currentUser, setCurrentUser }) => {
           path={Routes.SIGNIN}
           render={renderComponentForSignInRoute}
         />
-        <Route exact path={Routes.CHECKOUT} render={CheckoutPage} />
+        <Route exact path={Routes.CHECKOUT} component={CheckoutPage} />
       </Switch>
     </div>
   );
