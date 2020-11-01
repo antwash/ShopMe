@@ -14,19 +14,19 @@ const CheckoutPage = ({ totalCartPrice }) => {
     <div className="checkout-page">
       <div className="checkout-header">
         <div className="header-item">
-          <span>Product</span>
+          <span>PRODUCT</span>
         </div>
         <div className="header-item">
-          <span>Description</span>
+          <span>DESCRIPTION</span>
         </div>
         <div className="header-item">
-          <span>Price</span>
+          <span>PRICE</span>
         </div>
         <div className="header-item">
-          <span>Remove</span>
+          <span>REMOVE</span>
         </div>
       </div>
-      <div className="chart-total">Total ${totalCartPrice}</div>
+      <div className="chart-total">TOTAL ${totalCartPrice}</div>
     </div>
   );
 };
