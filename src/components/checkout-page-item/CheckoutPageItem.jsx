@@ -13,7 +13,11 @@ const CheckoutPageItem = ({ cartItem, dispatch }) => {
         <img alt={cartItem.name} src={cartItem.imageUrl} />
       </div>
       <div className="item-name">{cartItem.name}</div>
-      <div className="item-quantity">{cartItem.quantity}</div>
+      <div className="item-quantity">
+        <div className="item-arrow">&#10094;</div>
+        <span className="item-value">{cartItem.quantity}</span>
+        <div className="item-arrow">&#10095;</div>
+      </div>
       <div className="item-price">${cartItem.price}</div>
       <div
         className="remove-item-button"
