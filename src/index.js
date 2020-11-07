@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 
-import store from "src/redux/store";
+import { store, persistor } from "src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 import { setCurrentUserAction } from "src/redux/user/userActions";
 import { selectCurrentUser } from "src/redux/user/userSelectors";
 
@@ -92,7 +93,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ConnectedApp />
+        <PersistGate persistor={persistor}>
+          <ConnectedApp />
+        </PersistGate>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
