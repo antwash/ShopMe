@@ -1,12 +1,24 @@
 import React from "react";
 
-const CollectionPage = ({ match }) => {
-  const { collection } = match.params;
+import { connect } from "react-redux";
+
+import { selectShopCollection } from "src/redux/shop/shopSelectors";
+
+const CollectionPage = ({ collection }) => {
+  if (!collection) {
+    return null;
+  }
+
+  const { title } = collection;
   return (
     <div className="collection-page">
-      <span className="collection-title">{collection.toUpperCase()}</span>
+      <span className="collection-title">{title.toUpperCase()}</span>
     </div>
   );
 };
 
-export default CollectionPage;
+const mapStateToProps = (state, ownProps) => ({
+  collection: selectShopCollection(ownProps.match.params.collectionId)(state),
+});
+
+export default connect(mapStateToProps)(CollectionPage);
