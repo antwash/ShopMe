@@ -5,20 +5,12 @@ import { createStructuredSelector } from "reselect";
 
 import { selectShopItems } from "src/redux/shop/shopSelectors";
 
-import CollectionPreview from "src/components/collection-preview/CollectionPreview";
+import CollectionOverview from "../../components/collection-overview/CollectionOverview";
 
-const ShopPage = ({ itemsCollection }) => {
+const ShopPage = () => {
   return (
     <div>
-      {itemsCollection.map((item) => {
-        return (
-          <CollectionPreview
-            key={item.id}
-            title={item.title}
-            items={item.items}
-          />
-        );
-      })}
+      <CollectionOverview />
     </div>
   );
 };
