@@ -1,0 +1,1 @@
+.collection-page{display:flex;flex-direction:column}.collection-page .collection-title{font-size:36px;margin:0 auto 30px}.collection-page .collection-items{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-gap:10px}.collection-page .collection-items .collection-item{margin-bottom:30px}
