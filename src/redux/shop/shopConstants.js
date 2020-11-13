@@ -1,12 +1,5 @@
-export const COLLECTION_ITEM_ROUTE_ID_MAP = {
-  hats: 1,
-  shoes: 2,
-  jackets: 3,
-  womens: 4,
-  mens: 5,
-};
-export const SHOP_ITEMS = [
-  {
+export const SHOP_ITEMS = {
+  hats: {
     id: 1,
     title: "Hats",
     routeName: "hats",
@@ -67,7 +60,7 @@ export const SHOP_ITEMS = [
       },
     ],
   },
-  {
+  shoes: {
     id: 2,
     title: "Shoes",
     routeName: "shoes",
@@ -122,7 +115,7 @@ export const SHOP_ITEMS = [
       },
     ],
   },
-  {
+  jackets: {
     id: 3,
     title: "Jackets",
     routeName: "jackets",
@@ -159,7 +152,7 @@ export const SHOP_ITEMS = [
       },
     ],
   },
-  {
+  womens: {
     id: 4,
     title: "Womens",
     routeName: "womens",
@@ -208,7 +201,7 @@ export const SHOP_ITEMS = [
       },
     ],
   },
-  {
+  mens: {
     id: 5,
     title: "Mens",
     routeName: "mens",
@@ -251,4 +244,4 @@ export const SHOP_ITEMS = [
       },
     ],
   },
-];
+};
