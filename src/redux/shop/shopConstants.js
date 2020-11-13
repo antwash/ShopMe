@@ -1,6 +1,6 @@
 export const COLLECTION_ITEM_ROUTE_ID_MAP = {
   hats: 1,
-  sneakers: 2,
+  shoes: 2,
   jackets: 3,
   womens: 4,
   mens: 5,
@@ -69,8 +69,8 @@ export const SHOP_ITEMS = [
   },
   {
     id: 2,
-    title: "Sneakers",
-    routeName: "sneakers",
+    title: "Shoes",
+    routeName: "shoes",
     items: [
       {
         id: 9,

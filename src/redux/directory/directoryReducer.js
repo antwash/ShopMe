@@ -1,29 +1,29 @@
 const INITIAL_STATE = {
   sections: [
     {
-      linkUrl: "hats",
+      linkUrl: "shop/hats",
       title: "Hats",
       imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
     },
     {
-      linkUrl: "jackets",
+      linkUrl: "shop/jackets",
       title: "Jackets",
       imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
     },
     {
-      linkUrl: "shoes",
+      linkUrl: "shop/shoes",
       title: "Shoes",
       imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
     },
     {
-      linkUrl: "women",
-      title: "Women",
+      linkUrl: "shop/womens",
+      title: "Womens",
       size: "large",
       imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
     },
     {
-      linkUrl: "men",
-      title: "Men",
+      linkUrl: "shop/mens",
+      title: "Mens",
       size: "large",
       imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
     },
