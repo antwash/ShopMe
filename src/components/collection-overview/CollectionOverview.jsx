@@ -10,19 +10,22 @@ import CollectionPreview from "src/components/collection-preview/CollectionPrevi
 import "src/components/collection-overview/collectionoverview.styles.scss";
 
 const CollectionOverview = ({ shopItems }) => {
-  return (
-    <div className="collection-overview">
-      {shopItems.map((item) => {
-        return (
-          <CollectionPreview
-            key={item.id}
-            title={item.title}
-            items={item.items}
-          />
-        );
-      })}
-    </div>
-  );
+  const renderShoppingItems = () => {
+    const shoppingItems = [];
+    for (let itemKey in shopItems) {
+      const item = shopItems[itemKey];
+      shoppingItems.push(
+        <CollectionPreview
+          key={item.id}
+          title={item.title}
+          items={item.items}
+        />
+      );
+    }
+    return shoppingItems;
+  };
+
+  return <div className="collection-overview">{renderShoppingItems()}</div>;
 };
 
 const mapStateToProps = createStructuredSelector({
