@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 
+import { connect } from "react-redux";
 import { Route } from "react-router-dom";
+
+import { setShopItemsAction } from "src/redux/shop/shopActions";
 
 import CollectionPage from "src/page/collection-page/CollectionPage";
 import CollectionOverview from "src/components/collection-overview/CollectionOverview";
 
-const ShopPage = ({ match }) => {
+import {
+  convertShopItemsCollectionSnapshotToMap,
+  firestore,
+  fireStoreDbPaths,
+} from "src/firebase/util";
+
+const ShopPage = ({ match, setShopItems }) => {
+  useEffect(() => {
+    const collectionRef = firestore.collection(fireStoreDbPaths.shopItems);
+    collectionRef.onSnapshot(async (snapshot) => {
+      const shopItemsMap = convertShopItemsCollectionSnapshotToMap(snapshot);
+      setShopItems(shopItemsMap);
+    });
+  });
+
   return (
     <div>
       <Route exact path={`${match.path}`} component={CollectionOverview} />
@@ -18,4 +35,8 @@ const ShopPage = ({ match }) => {
   );
 };
 
-export default ShopPage;
+const mapDispatchToProps = (dispatch) => ({
+  setShopItems: (shopItems) => dispatch(setShopItemsAction(shopItems)),
+});
+
+export default connect(null, mapDispatchToProps)(ShopPage);
