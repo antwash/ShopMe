@@ -14,14 +14,15 @@ const firebaseConfig = {
   measurementId: "G-QE77LDDFVD",
 };
 
-const fireStoreDbPaths = {
-  users: "users/",
+export const fireStoreDbPaths = {
+  users: "users",
+  shopItems: "shopItems",
 };
 
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
-const firestore = firebase.firestore();
+export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
@@ -34,7 +35,7 @@ export const createAuthenticatedUserRef = async (authenticatedUser) => {
     return;
   }
 
-  const userPath = `${fireStoreDbPaths.users}${authenticatedUser.uid}`;
+  const userPath = `${fireStoreDbPaths.users}/${authenticatedUser.uid}`;
   const userReference = firestore.doc(userPath);
   const snapShot = await userReference.get();
 
@@ -58,4 +59,19 @@ export const createAuthenticatedUserRef = async (authenticatedUser) => {
   }
 
   return userReference;
+};
+
+export const convertShopItemsCollectionSnapshotToMap = (collections) => {
+  const transformedCollection = {};
+  collections.docs.forEach((document) => {
+    const { title, items } = document.data();
+    const lowerCaseTitle = title.toLowerCase();
+    transformedCollection[lowerCaseTitle] = {
+      title,
+      items,
+      id: document.id,
+      routeName: encodeURI(lowerCaseTitle),
+    };
+  });
+  return transformedCollection;
 };
