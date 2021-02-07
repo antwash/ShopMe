@@ -6,6 +6,10 @@
   .title {
     font-size: 30px;
     margin-bottom: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .item-preview {
