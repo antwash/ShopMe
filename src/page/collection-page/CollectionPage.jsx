@@ -2,7 +2,7 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-import { selectShopCollection } from "src/redux/shop/shopSelectors";
+import { selectShopItemCollection } from "src/redux/shop/shopSelectors";
 
 import CollectionItem from "src/components/collection-item/CollectionItem";
 
@@ -27,7 +27,9 @@ const CollectionPage = ({ collection }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  collection: selectShopCollection(ownProps.match.params.collectionId)(state),
+  collection: selectShopItemCollection(ownProps.match.params.collectionId)(
+    state
+  ),
 });
 
 export default connect(mapStateToProps)(CollectionPage);
