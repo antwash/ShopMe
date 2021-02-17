@@ -1,34 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { Route } from "react-router-dom";
-
-import { setShopItemsAction } from "src/redux/shop/shopActions";
 
 import CollectionPage from "src/page/collection-page/CollectionPage";
 import CollectionOverview from "src/components/collection-overview/CollectionOverview";
 import WithLoadingSpinner from "src/components/loading-spinner/loading-spinner";
 
-import {
-  convertShopItemsCollectionSnapshotToMap,
-  firestore,
-  fireStoreDbPaths,
-} from "src/firebase/util";
+import { selectIsFetchingShopItems } from "src/redux/shop/shopSelectors";
+import { fetchShopItemsAsync } from "src/redux/shop/shopActions";
 
 const CollectionOverviewWithSpinner = WithLoadingSpinner(CollectionOverview);
 const CollectionPageWithSpinner = WithLoadingSpinner(CollectionPage);
 
-const ShopPage = ({ match, setShopItems }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
+const ShopPage = ({ match, isLoading, fetchShopItems }) => {
   useEffect(() => {
-    const collectionRef = firestore.collection(fireStoreDbPaths.shopItems);
-    collectionRef.onSnapshot(async (snapshot) => {
-      const shopItemsMap = convertShopItemsCollectionSnapshotToMap(snapshot);
-      setShopItems(shopItemsMap);
-      setIsLoading(false);
-    });
-  });
+    fetchShopItems();
+  }, [fetchShopItems]);
 
   return (
     <div>
@@ -52,8 +41,12 @@ const ShopPage = ({ match, setShopItems }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setShopItems: (shopItems) => dispatch(setShopItemsAction(shopItems)),
+const mapStateToProps = createStructuredSelector({
+  isLoading: selectIsFetchingShopItems,
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = (dispatch) => ({
+  fetchShopItems: () => dispatch(fetchShopItemsAsync()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
